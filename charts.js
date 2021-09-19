@@ -5,7 +5,7 @@ function init() {
   // Use the list of sample names to populate the select options
   d3.json("samples.json").then((data) => {
     // verify samples.json is functional source of data by logging to console
-    console.log(data)
+    // console.log(data) - verified
 
     var sampleNames = data.names;
 
@@ -80,7 +80,12 @@ function buildCharts(sample) {
     //  so the otu_ids with the most bacteria are last. 
     var sortedResults = resultArray.sort((a,b) => a.sample_values - b.sample_values).reverse();
     var topTenResults = sortedResults.slice(0,10);
+
     
+    otu_Ids = topTenResults.map(bd => bd.otu_ids)
+    otu_Labels = topTenResults.map(bd => bd.otu_labels)
+    sample_Values = topTenResults.map(bd => bd.sample_values);
+
     var yticks = sample_Values;
 
     // 8. Create the trace for the bar chart. 
