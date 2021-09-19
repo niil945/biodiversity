@@ -82,9 +82,14 @@ function buildCharts(sample) {
     var topTenResults = sortedResults.slice(0,10);
 
     
-    otu_Ids = topTenResults.map(bd => bd.otu_ids)
-    otu_Labels = topTenResults.map(bd => bd.otu_labels)
+    otu_Ids = topTenResults.map(bd => bd.otu_ids);
+    console.log(otu_Ids);
+
+    otu_Labels = topTenResults.map(bd => bd.otu_labels);
+    console.log(otu_Labels);
+
     sample_Values = topTenResults.map(bd => bd.sample_values);
+    console.log(sample_Values);
 
     var yticks = sample_Values;
 
