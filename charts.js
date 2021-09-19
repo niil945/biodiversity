@@ -84,19 +84,19 @@ function buildCharts(sample) {
     var yticks = sample_Values;
 
     // 8. Create the trace for the bar chart. 
-    var barData = {
+    var barData = [{
       x: otu_Labels,
       y: yticks,
       type: "bar"
-    };
+    }];
       
     // 9. Create the layout for the bar chart. 
-    var barLayout = {
+    var barLayout = [{
       title: "Top 10 Bacteria Cultures Found",
       xaxis: {title: "" },
       yaxis: {title: ""}
      
-    };
+    }];
     // 10. Use Plotly to plot the data with the layout. 
     Plotly.newPlot("bar-plot", barData, barLayout)
   });
