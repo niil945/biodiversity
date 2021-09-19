@@ -82,7 +82,7 @@ function buildCharts(sample) {
     otu_Ids = Array.from(result.otu_ids).slice(0,10).reverse();
     otu_Labels = Array.from(result.otu_labels).slice(0,10).reverse();
     sample_Values = Array.from(result.sample_values).slice(0,10).reverse();
-    console.log(otu_Ids);
+    //console.log(otu_Ids); - verified
     var yticks = [];
     prefix = 'OTU ';
     var yticks = otu_Ids.map(x => prefix + x);
@@ -131,5 +131,45 @@ function buildCharts(sample) {
 
     // 3. Use Plotly to plot the data with the layout.
     Plotly.newPlot("bubble", bubbleData, bubbleLayout, config); 
+
+
+   // 3. Create a variable that holds the washing frequency.
+   var metadata = data.metadata;
+   // Filter the data for the object with the desired sample number
+   var mResultArray = metadata.filter(sampleObj => sampleObj.id == sample);
+   var mResult = mResultArray[0];
+   var wFreq = parseFloat(mResult.wfreq);
+   console.log(wFreq);
+
+    // 4. Create the trace for the gauge chart.
+    var gaugeData = [{
+      domain: {x: [0,2], y: [0,2]},
+      value: wFreq,
+      title: {text: "<b>Belly Button Washing Frequency</b><br>Scrubs per Week"},
+      type: "indicator",
+      gauge: {
+        axis: { range: [null, 10]},
+        bar: { color: "black"},
+        steps: [
+          {range: [0, 2], color: "red"},
+          {range: [2, 4], color: "orange"},
+          {range: [4, 6], color: "yellow"},
+          {range: [6, 8], color: "greenyellow"},
+          {range: [8, 10], color: "green"}
+        ]
+        },
+      
+      mode: "gauge+number"
+    }];
+    
+    // 5. Create the layout for the gauge chart.
+    var gaugeLayout = { 
+      width: 600,
+      height: 500,
+      margin: {t: 0, b: 0}
+    };
+
+    // 6. Use Plotly to plot the gauge data and layout.
+    Plotly.newPlot("gauge", gaugeData, gaugeLayout);
   });
 }
